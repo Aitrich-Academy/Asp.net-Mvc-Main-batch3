@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="E_COMMERCEModelStoreContainer" CdmEntityContainer="E_COMMERCEEntities1">
-    <EntitySetMapping Name="Category">
+  <EntityContainerMapping StorageEntityContainer="E_COMMERCEModelStoreContainer" CdmEntityContainer="E_COMMERCEEntities">
+    <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="E_COMMERCEModel.Category">
         <MappingFragment StoreEntitySet="Category">
           <ScalarProperty Name="category_id" ColumnName="category_id" />
@@ -17,7 +17,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Orders">
-      <EntityTypeMapping TypeName="E_COMMERCEModel.Orders">
+      <EntityTypeMapping TypeName="E_COMMERCEModel.Order">
         <MappingFragment StoreEntitySet="Orders">
           <ScalarProperty Name="order_id" ColumnName="order_id" />
           <ScalarProperty Name="user_id" ColumnName="user_id" />
@@ -33,9 +33,8 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Products">
-      <EntityTypeMapping TypeName="E_COMMERCEModel.Products">
+      <EntityTypeMapping TypeName="E_COMMERCEModel.Product">
         <MappingFragment StoreEntitySet="Products">
-          <ScalarProperty Name="price" ColumnName="price" />
           <ScalarProperty Name="product_id" ColumnName="product_id" />
           <ScalarProperty Name="product_name" ColumnName="product_name" />
           <ScalarProperty Name="category_id" ColumnName="category_id" />
@@ -47,11 +46,12 @@
           <ScalarProperty Name="createdDate" ColumnName="createdDate" />
           <ScalarProperty Name="lastModifiedBy" ColumnName="lastModifiedBy" />
           <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
+          <ScalarProperty Name="price" ColumnName="price" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="E_COMMERCEModel.Users">
+      <EntityTypeMapping TypeName="E_COMMERCEModel.User">
         <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="user_id" ColumnName="user_id" />
           <ScalarProperty Name="name" ColumnName="name" />
