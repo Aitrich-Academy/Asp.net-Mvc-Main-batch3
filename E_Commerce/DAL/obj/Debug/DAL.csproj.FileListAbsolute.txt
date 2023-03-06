@@ -1,0 +1,12 @@
+E:\Anshid\Workshop\3rd module\Mvc\MVC_Project\New folder\E_Commerce\DAL\bin\Debug\DAL.dll.config
+E:\Anshid\Workshop\3rd module\Mvc\MVC_Project\New folder\E_Commerce\DAL\bin\Debug\DAL.dll
+E:\Anshid\Workshop\3rd module\Mvc\MVC_Project\New folder\E_Commerce\DAL\bin\Debug\DAL.pdb
+E:\Anshid\Workshop\3rd module\Mvc\MVC_Project\New folder\E_Commerce\DAL\bin\Debug\EntityFramework.dll
+E:\Anshid\Workshop\3rd module\Mvc\MVC_Project\New folder\E_Commerce\DAL\bin\Debug\EntityFramework.SqlServer.dll
+E:\Anshid\Workshop\3rd module\Mvc\MVC_Project\New folder\E_Commerce\DAL\bin\Debug\EntityFramework.xml
+E:\Anshid\Workshop\3rd module\Mvc\MVC_Project\New folder\E_Commerce\DAL\bin\Debug\EntityFramework.SqlServer.xml
+E:\Anshid\Workshop\3rd module\Mvc\MVC_Project\New folder\E_Commerce\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+E:\Anshid\Workshop\3rd module\Mvc\MVC_Project\New folder\E_Commerce\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+E:\Anshid\Workshop\3rd module\Mvc\MVC_Project\New folder\E_Commerce\DAL\obj\Debug\DAL.csproj.CopyComplete
+E:\Anshid\Workshop\3rd module\Mvc\MVC_Project\New folder\E_Commerce\DAL\obj\Debug\DAL.dll
+E:\Anshid\Workshop\3rd module\Mvc\MVC_Project\New folder\E_Commerce\DAL\obj\Debug\DAL.pdb
