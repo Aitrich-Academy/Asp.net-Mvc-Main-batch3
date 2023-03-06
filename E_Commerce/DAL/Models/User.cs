@@ -12,16 +12,29 @@ namespace DAL.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class User
     {
-        public int category_id { get; set; }
-        public string category_name { get; set; }
-        public string description { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.Orders = new HashSet<Order>();
+        }
+    
+        public int user_id { get; set; }
+        public string name { get; set; }
+        public string email { get; set; }
+        public string phone { get; set; }
+        public string address { get; set; }
         public byte[] image { get; set; }
+        public string role { get; set; }
         public string status { get; set; }
         public string createdBy { get; set; }
         public string createdDate { get; set; }
         public string lastModifiedBy { get; set; }
         public string lastModifiedDate { get; set; }
+        public string password { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

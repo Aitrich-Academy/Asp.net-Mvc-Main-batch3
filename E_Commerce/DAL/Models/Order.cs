@@ -12,16 +12,20 @@ namespace DAL.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class Order
     {
-        public int category_id { get; set; }
-        public string category_name { get; set; }
-        public string description { get; set; }
-        public byte[] image { get; set; }
+        public int order_id { get; set; }
+        public int user_id { get; set; }
+        public int product_id { get; set; }
+        public int quantity { get; set; }
+        public int total_price { get; set; }
         public string status { get; set; }
         public string createdBy { get; set; }
         public string createdDate { get; set; }
         public string lastModifiedBy { get; set; }
         public string lastModifiedDate { get; set; }
+    
+        public virtual Product Product { get; set; }
+        public virtual User User { get; set; }
     }
 }

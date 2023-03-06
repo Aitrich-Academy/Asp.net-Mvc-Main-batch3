@@ -13,10 +13,10 @@ namespace DAL.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class E_COMMERCEEntities1 : DbContext
+    public partial class E_COMMERCEEntities : DbContext
     {
-        public E_COMMERCEEntities1()
-            : base("name=E_COMMERCEEntities1")
+        public E_COMMERCEEntities()
+            : base("name=E_COMMERCEEntities")
         {
         }
     
@@ -25,9 +25,9 @@ namespace DAL.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Orders> Orders { get; set; }
-        public virtual DbSet<Products> Products { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

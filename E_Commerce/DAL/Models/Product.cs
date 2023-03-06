@@ -12,16 +12,28 @@ namespace DAL.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class Product
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Product()
+        {
+            this.Orders = new HashSet<Order>();
+        }
+    
+        public int product_id { get; set; }
+        public string product_name { get; set; }
         public int category_id { get; set; }
-        public string category_name { get; set; }
         public string description { get; set; }
+        public int stock { get; set; }
         public byte[] image { get; set; }
         public string status { get; set; }
         public string createdBy { get; set; }
         public string createdDate { get; set; }
         public string lastModifiedBy { get; set; }
         public string lastModifiedDate { get; set; }
+        public Nullable<int> price { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
