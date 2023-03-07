@@ -86,6 +86,7 @@ namespace E_Commerce.Controllers
             ProductManager mngr=new ProductManager();
             List<Ent_Product> list= new List<Ent_Product>();
             List<Products> tbl_Obj = mngr.GetAllProoducts();
+            //Category tbl_category= new Category();
 
             foreach(var obj in tbl_Obj)
             {
@@ -94,6 +95,7 @@ namespace E_Commerce.Controllers
                     id=obj.product_id,
                     name=obj.product_name,
                     categoryId=obj.category_id,
+                    categoryName=obj.Category.category_name,
                     description=obj.description,
                     stock=obj.stock,
                     image=obj.image,
@@ -123,6 +125,7 @@ namespace E_Commerce.Controllers
                     id = obj.product_id,
                     name = obj.product_name,
                     categoryId = obj.category_id,
+                    categoryName=obj.Category.category_name,
                     description = obj.description,
                     stock = obj.stock,
                     image = obj.image,
@@ -151,6 +154,7 @@ namespace E_Commerce.Controllers
                 entProdObj.id = tbl_prod.product_id;
                 entProdObj.name = tbl_prod.product_name;
                 entProdObj.categoryId = tbl_prod.category_id;
+                entProdObj.categoryName=tbl_prod.product_name.ToString();
                 entProdObj.description = tbl_prod.description;
                 entProdObj.stock = tbl_prod.stock;
                 entProdObj.image = tbl_prod.image;
