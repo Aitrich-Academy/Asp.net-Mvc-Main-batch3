@@ -86,7 +86,7 @@ namespace DAL.Manager
 
 
 
-        public List<Product> ProductSearch(string proName)
+        public List<Products> ProductSearch(string proName)
         {
             //if((proName)!=null)
             //{
@@ -107,7 +107,6 @@ namespace DAL.Manager
                 throw;
             }
            
-
 
         }
 

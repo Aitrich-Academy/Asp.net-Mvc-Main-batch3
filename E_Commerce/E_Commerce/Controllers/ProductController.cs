@@ -85,7 +85,9 @@ namespace E_Commerce.Controllers
         {
             ProductManager mngr=new ProductManager();
             List<Ent_Product> list= new List<Ent_Product>();
-            List<Product> tbl_Obj = mngr.GetAllProoducts();
+
+            List<Products> tbl_Obj = mngr.GetAllProoducts();
+            
 
             foreach(var obj in tbl_Obj)
             {
@@ -94,6 +96,7 @@ namespace E_Commerce.Controllers
                     id=obj.product_id,
                     name=obj.product_name,
                     categoryId=obj.category_id,
+                    categoryName=obj.Category.category_name,
                     description=obj.description,
                     stock=obj.stock,
                     image=obj.image,
@@ -123,6 +126,7 @@ namespace E_Commerce.Controllers
                     id = obj.product_id,
                     name = obj.product_name,
                     categoryId = obj.category_id,
+                    categoryName=obj.Category.category_name,
                     description = obj.description,
                     stock = obj.stock,
                     image = obj.image,
@@ -146,11 +150,13 @@ namespace E_Commerce.Controllers
             Ent_Product entProdObj=new Ent_Product();
             Product tbl_prod = mngr.GetProductById(id);
 
+
             if(tbl_prod != null)
             {
                 entProdObj.id = tbl_prod.product_id;
                 entProdObj.name = tbl_prod.product_name;
                 entProdObj.categoryId = tbl_prod.category_id;
+                entProdObj.categoryName = tbl_prod.Category.category_name;
                 entProdObj.description = tbl_prod.description;
                 entProdObj.stock = tbl_prod.stock;
                 entProdObj.image = tbl_prod.image;
@@ -179,6 +185,7 @@ namespace E_Commerce.Controllers
                     id= obj.product_id,
                     name = obj.product_name,
                     categoryId = obj.category_id,
+                    categoryName=obj.Category.category_name,
                     description = obj.description,
                     stock = obj.stock,
                     image = obj.image,
