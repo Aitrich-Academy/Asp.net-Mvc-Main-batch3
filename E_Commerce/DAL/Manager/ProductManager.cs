@@ -107,7 +107,6 @@ namespace DAL.Manager
             }
            
 
-
         }
 
 

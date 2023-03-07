@@ -184,6 +184,7 @@ namespace E_Commerce.Controllers
                     id= obj.product_id,
                     name = obj.product_name,
                     categoryId = obj.category_id,
+                    categoryName=obj.Category.category_name,
                     description = obj.description,
                     stock = obj.stock,
                     image = obj.image,
