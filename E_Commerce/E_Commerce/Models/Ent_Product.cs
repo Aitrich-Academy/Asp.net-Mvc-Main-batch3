@@ -11,6 +11,7 @@ namespace E_Commerce.Models
         public int id { get; set; }
         public string name { get; set; }
         public int categoryId { get; set; }
+        public string categoryName { get; set; }
         public string description { get; set; }
         public int stock { get; set; }
         public byte[] image { get; set; }
