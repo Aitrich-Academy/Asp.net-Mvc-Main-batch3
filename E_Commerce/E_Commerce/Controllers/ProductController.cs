@@ -154,7 +154,7 @@ namespace E_Commerce.Controllers
                 entProdObj.id = tbl_prod.product_id;
                 entProdObj.name = tbl_prod.product_name;
                 entProdObj.categoryId = tbl_prod.category_id;
-                entProdObj.categoryName=tbl_prod.product_name.ToString();
+                entProdObj.categoryName = tbl_prod.Category.category_name;
                 entProdObj.description = tbl_prod.description;
                 entProdObj.stock = tbl_prod.stock;
                 entProdObj.image = tbl_prod.image;
