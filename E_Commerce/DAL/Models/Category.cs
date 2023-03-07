@@ -14,12 +14,6 @@ namespace DAL.Models
     
     public partial class Category
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
-        {
-            this.Products = new HashSet<Products>();
-        }
-    
         public int category_id { get; set; }
         public string category_name { get; set; }
         public string description { get; set; }
@@ -29,8 +23,5 @@ namespace DAL.Models
         public string createdDate { get; set; }
         public string lastModifiedBy { get; set; }
         public string lastModifiedDate { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Products> Products { get; set; }
     }
 }

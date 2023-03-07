@@ -30,7 +30,7 @@ namespace E_Commerce.Controllers
         {
             ProductManager mngr=new ProductManager();
             Ent_Product entProObj = Obj;
-            Products tbl_Prod= new Products();
+            Product tbl_Prod = new Product();
 
             tbl_Prod.product_name = entProObj.name;
             tbl_Prod.category_id = entProObj.categoryId;
@@ -53,7 +53,7 @@ namespace E_Commerce.Controllers
             
             ProductManager mngr = new ProductManager();
             Ent_Product entProObj = Obj;
-            Products tbl_Prod = new Products();
+            Product tbl_Prod = new Product();
 
             tbl_Prod.product_id = id;
             tbl_Prod.product_name=entProObj.name;
@@ -85,6 +85,7 @@ namespace E_Commerce.Controllers
         {
             ProductManager mngr=new ProductManager();
             List<Ent_Product> list= new List<Ent_Product>();
+
             List<Products> tbl_Obj = mngr.GetAllProoducts();
             
 
@@ -116,7 +117,7 @@ namespace E_Commerce.Controllers
         {
             ProductManager mngr = new ProductManager();
             List<Ent_Product> list = new List<Ent_Product>();
-            List<Products> tbl_Obj = mngr.ProductsByCategory(cid);
+            List<Product> tbl_Obj = mngr.ProductsByCategory(cid);
 
             foreach (var obj in tbl_Obj)
             {
@@ -147,7 +148,7 @@ namespace E_Commerce.Controllers
         {
             ProductManager mngr=new ProductManager();
             Ent_Product entProdObj=new Ent_Product();
-            Products tbl_prod = mngr.GetProductById(id);
+            Product tbl_prod = mngr.GetProductById(id);
 
 
             if(tbl_prod != null)
@@ -175,7 +176,7 @@ namespace E_Commerce.Controllers
         {
             ProductManager mngr = new ProductManager();
             List<Ent_Product> list = new List<Ent_Product>();
-            List<Products> tbl_prod = mngr.ProductSearch(proName);
+            List<Product> tbl_prod = mngr.ProductSearch(proName);
 
             foreach(var obj in tbl_prod)
             {

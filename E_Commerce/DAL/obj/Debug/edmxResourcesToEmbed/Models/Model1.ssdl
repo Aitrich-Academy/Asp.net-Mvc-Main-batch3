@@ -54,7 +54,7 @@
     <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="phone" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="address" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="address" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="image" Type="varbinary(max)" />
     <Property Name="role" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
