@@ -11,9 +11,9 @@ namespace DAL.Manager
 {
     public class ProductManager
     {
-        E_COMMERCEEntities db =new E_COMMERCEEntities();
+        E_COMMERCEEntities1 db =new E_COMMERCEEntities1();
 
-        public string InsertProduct(Product tbl_prod)
+        public string InsertProduct(Products tbl_prod)
         {
             int result = 0;
 
@@ -50,7 +50,7 @@ namespace DAL.Manager
             }
         }
 
-        public void UpdateProduct(Product tbl_Prod)
+        public void UpdateProduct(Products tbl_Prod)
         {
             var objUser = db.Products.Where(e => e.product_id == tbl_Prod.product_id && e.status!="D").SingleOrDefault();
 
@@ -72,21 +72,21 @@ namespace DAL.Manager
             }
         }
 
-        public List<Product> GetAllProoducts()
+        public List<Products> GetAllProoducts()
         {
             return db.Products.Where(e => e.status != "D").ToList(); 
         }
 
-        public Product GetProductById(int pid)
+        public Products GetProductById(int pid)
         {
-            Product tbl_Prod=new Product();
+            Products tbl_Prod=new Products();
             return db.Products.Where(e => e.product_id == pid && e.status != "D").SingleOrDefault();       
         }
 
 
 
 
-        public List<Product> ProductSearch(string proName)
+        public List<Products> ProductSearch(string proName)
         {
             //if((proName)!=null)
             //{
@@ -121,7 +121,7 @@ namespace DAL.Manager
             db.SaveChanges();
         }
 
-        public List<Product> ProductsByCategory(int cid)
+        public List<Products> ProductsByCategory(int cid)
         {
             if (cid != 0)
             {

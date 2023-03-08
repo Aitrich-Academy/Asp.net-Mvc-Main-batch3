@@ -10,9 +10,9 @@ namespace DAL.Manager
 {
     public class UserManager
     {
-        E_COMMERCEEntities usr = new E_COMMERCEEntities();
+        E_COMMERCEEntities1 usr = new E_COMMERCEEntities1();
 
-        public string userRegistration(User Obj)
+        public string userRegistration(Users Obj)
         {
             int result = 0;
             //var objUser = usr.Users
@@ -52,7 +52,7 @@ namespace DAL.Manager
             }
 
         }
-        public string userRegistration_update(User ur)
+        public string userRegistration_update(Users ur)
         {
 
             var objUser = usr.Users.Where(e => e.user_id == ur.user_id && e.status != "D").SingleOrDefault();
@@ -82,9 +82,9 @@ namespace DAL.Manager
             }
         }
 
-        public User userDetails(int Id)
+        public Users userDetails(int Id)
         {
-            User return_Obj = new User();
+            Users return_Obj = new Users();
             return return_Obj = usr.Users.Where(e => e.user_id == Id && e.status != "D").SingleOrDefault();
         }
         public void userRegistration_delete(int id)
@@ -97,13 +97,13 @@ namespace DAL.Manager
 
         }
 
-        public User login(User a)
+        public Users login(Users a)
         {
             var objUser = usr.Users.Where(e => e.email == a.email && e.password == a.password && e.status != "D").SingleOrDefault();
             return objUser;
         }
 
-        public string userPatch(User ur)
+        public string userPatch(Users ur)
         {
 
             var objUser = usr.Users.Where(e => e.user_id == ur.user_id && e.status != "D").SingleOrDefault();
