@@ -10,13 +10,21 @@ using System.Net.Configuration;
 using System.Net.Http;
 using System.Net.Mail;
 using System.Web.Http;
+using Ent_Email = DAL.Manager.Ent_Email;
+//using Ent_Email = DAL.Manager.Ent_Email;
 
 namespace E_Commerce.Controllers
 {
     [RoutePrefix("api/Order")]  // Url creation Route
     public class OrderController : ApiController
     {
-        E_COMMERCEEntities db = new E_COMMERCEEntities();
+        E_COMMERCEEntities1 db = new E_COMMERCEEntities1();
+
+
+        OrderManager mgr = new OrderManager();
+        UserManager userManager = new UserManager();
+        MailManager mailMngr = new MailManager();
+        Ent_Email mail = new Ent_Email();
         public string GetMe()
         {
             return "Hello...";
@@ -56,7 +64,7 @@ namespace E_Commerce.Controllers
         {
             OrderManager odmngr = new OrderManager();
             List<Ent_Order> return_List = new List<Ent_Order>();
-            List<Order> odr_Obj = odmngr.allOrders();
+            List<Orders> odr_Obj = odmngr.allOrders();
             if (odr_Obj.Count != 0)
             {
                 foreach (var obj in odr_Obj)
@@ -87,7 +95,7 @@ namespace E_Commerce.Controllers
         {
             OrderManager odmngr = new OrderManager();
             Ent_Order return_Obj = new Ent_Order();
-            Order odr_Obj = odmngr.orderdetUserId(Convert.ToInt32(id));
+            Orders odr_Obj = odmngr.orderdetUserId(Convert.ToInt32(id));
 
             if (odr_Obj != null)
             {
@@ -113,7 +121,7 @@ namespace E_Commerce.Controllers
         {
             OrderManager odmngr = new OrderManager();
             List<Ent_Order> return_List = new List<Ent_Order>();
-            List<Order> odr_Obj = odmngr.allOrdersusr(Convert.ToInt32(id));
+            List<Orders> odr_Obj = odmngr.allOrdersusr(Convert.ToInt32(id));
             if (odr_Obj.Count != 0)
             {
                 foreach (var obj in odr_Obj)
@@ -137,33 +145,69 @@ namespace E_Commerce.Controllers
         }
         //api/sample/orderInsert
         //[System.Web.Http.AcceptVerbs("GET", "Post")]
-        [System.Web.Http.HttpGet]
-        [Route("orderInsert")] // Url creation Route
-        [HttpPost]
+        //[System.Web.Http.HttpGet]
+        //[Route("orderInsert")] // Url creation Route
+        //[HttpPost]
 
-        public string orderInsert(Ent_Order Obj)
+        //public string orderInsert(Ent_Order Obj)
+        //{
+        //    OrderManager odrmngr = new OrderManager();
+
+        //    ProductManager prmngr = new ProductManager();
+        //    Ent_Order objodr = Obj;
+        //    Orders odr = new Orders();
+        //    Products pdr = new Products();
+
+        //   var pr = db.Products.Where(e => e.product_id == Obj.product_id && e.status != "D").SingleOrDefault();
+
+        //    // odr.order_id = objodr.order_id;
+        //    odr.user_id = (int)objodr.user_id;
+        //    odr.product_id = (int)objodr.product_id;
+        //    odr.quantity = objodr.quantity;
+        //    odr.total_price = (int)(objodr.quantity * pr.price);
+        //    odr.status = "A";
+        //    odr.createdBy = "system";
+        //    odr.createdDate = DateTime.Now.ToString();
+        //    odr.lastModifiedBy = "system";
+        //    odr.lastModifiedDate = DateTime.Now.ToString();
+        //    return odrmngr.Orderinsert(odr);
+        //}
+
+        public HttpResponseMessage Post(Ent_Order ent)
         {
-            OrderManager odrmngr = new OrderManager();
 
-            ProductManager prmngr = new ProductManager();
-            Ent_Order objodr = Obj;
-            Order odr = new Order();
-            Product pdr = new Product();
+            Orders ord = new Orders();
+            ord.user_id = ent.user_id;
+            ord.product_id = ent.product_id;
+            ord.quantity = ent.quantity;
 
-           var pr = db.Products.Where(e => e.product_id == Obj.product_id && e.status != "D").SingleOrDefault();
 
-            // odr.order_id = objodr.order_id;
-            odr.user_id = (int)objodr.user_id;
-            odr.product_id = (int)objodr.product_id;
-            odr.quantity = objodr.quantity;
-            odr.total_price = (int)(objodr.quantity * pr.price);
-            odr.status = "A";
-            odr.createdBy = "system";
-            odr.createdDate = DateTime.Now.ToString();
-            odr.lastModifiedBy = "system";
-            odr.lastModifiedDate = DateTime.Now.ToString();
-            return odrmngr.Orderinsert(odr);
+            int tot = mgr.GetPrice(ord);
+            ord.total_price = ent.quantity * tot;
+
+
+            ord.status = "A";
+            ord.createdBy = "Test";
+            ord.createdDate = DateTime.Now.ToString();
+            ord.lastModifiedBy = "Test1";
+            ord.lastModifiedDate = DateTime.Now.ToString();
+
+            string result = mgr.AddOrder(ord);
+
+            if (result == "Error")
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
+            else
+            {
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Added Successfully");
+
+            }
         }
+
+
+
+
+
         //api/sample/OrderUpdate (status set to D)
         [HttpPut]
         [Route("orderUpdate")]
@@ -172,7 +216,7 @@ namespace E_Commerce.Controllers
         {
             OrderManager odrmngr = new OrderManager();
             Ent_Order entobj = Obj;
-            Order odr = new Order();
+            Orders odr = new Orders();
 
             odr.order_id = id;
             //odr.user_id = (int)entobj.user_id;
@@ -201,7 +245,7 @@ namespace E_Commerce.Controllers
         [Route("Delete")]
         public HttpResponseMessage Delete(int id)
         {
-            Order ord = new Order();
+            Orders ord = new Orders();
             OrderManager odmngr = new OrderManager();
             ord.order_id = id;
             ord.status = "D";
@@ -211,33 +255,80 @@ namespace E_Commerce.Controllers
         }
 
         //[Route("api/AjaxAPI/SendEmail")]
-        [Route("SendEmail")]
+
+
+        [Route("SendMailtoUser")]
         [HttpPost]
-        public string SendEmail(Ent_Email email)
+        public HttpResponseMessage SendMailtoUser(Ent_Order ent)
         {
-            //Read SMTP section from Web.Config.
-            SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
-
-            using (MailMessage mm = new MailMessage(smtpSection.From, email.Email))
+            try
             {
-                mm.Subject = email.Subject;
-                mm.Body = email.Body;
 
-                mm.IsBodyHtml = true;
+                Orders order = new Orders();
+                order.user_id = ent.user_id;
 
-                using (SmtpClient smtp = new SmtpClient())
+                string mailid = mgr.SelectMailid(order);
+                mail.Email = mailid;
+
+
+                mail.Body = "OrderAccepted";
+                mail.Subject = "Order Details";
+
+
+                List<Orders> ord1 = mgr.OrderFullData(order);
+
+                foreach (var obj in ord1)
                 {
-                    smtp.Host = smtpSection.Network.Host;
-                    smtp.EnableSsl = smtpSection.Network.EnableSsl;
-                    NetworkCredential networkCred = new NetworkCredential(smtpSection.Network.UserName, smtpSection.Network.Password);
-                    smtp.UseDefaultCredentials = true;
-                    smtp.Credentials = networkCred;
-                    smtp.Port = smtpSection.Network.Port;
-                    smtp.Send(mm);
+                    obj.user_id = obj.user_id;
+                    obj.status = "D";
+                    mgr.UpdateStatus(obj);
                 }
+
+                string result = mailMngr.SendEmailId(mail);
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
 
-            return "Email sent sucessfully.";
         }
+        [Route("OrderedItems")]
+        [HttpPost]
+        public HttpResponseMessage OrderFullItems(Ent_Order ent)
+        {
+
+            try
+            {
+
+                Orders order = new Orders();
+                order.user_id = ent.user_id;
+
+                string mailid = mgr.SelectMailid(order);
+                mail.Email = mailid;
+
+
+                List<Orders> ord1 = mgr.OrderFullData(order);
+                foreach (var obj in ord1)
+                {
+                    int tot = mgr.GetPriceByProduct(obj.product_id);
+                    order.total_price = obj.quantity * tot;
+                    mail.Body += "<h3>Quantity    :   " + obj.quantity + "\nPrice    :    " + tot + "\nTotal   :   " + obj.total_price + "\n</h3>";
+                }
+
+                mail.Subject = "Order Details";
+
+                string result = mailMngr.AdminSendMail(mail);
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+
+        }
+
+
     }
 }
