@@ -11,17 +11,17 @@ namespace DAL.Manager
 {
     public class CategoryManager
     {
-        E_COMMERCEEntities1 db = new E_COMMERCEEntities1();
+        E_COMMERCE1Entities db = new E_COMMERCE1Entities();
 
         public string InsertCategory(Category tbl_cat)
         {
             int result = 0;
 
-            var objuser = db.Category.Where(e => e.category_name == tbl_cat.category_name && e.status != "D").SingleOrDefault();
+            var objuser = db.Categories.Where(e => e.category_name == tbl_cat.category_name && e.status != "D").SingleOrDefault();
             if (objuser == null)
             {
                 tbl_cat.status = "A";
-                db.Category.Add(tbl_cat);
+                db.Categories.Add(tbl_cat);
                 result = db.SaveChanges();
             }
             else
@@ -35,7 +35,7 @@ namespace DAL.Manager
                 objuser.lastModifiedBy = "admin";
                 objuser.lastModifiedDate = DateTime.Now.ToString();
                 db.Entry(objuser).State = EntityState.Modified;
-                db.SaveChanges();
+                result=db.SaveChanges();
             }
 
             if (result > 0)
@@ -49,7 +49,7 @@ namespace DAL.Manager
         }
         public void UpdateCategory(Category tbl_Cat)
         {
-            var objUser=db.Category.Where(e=>e.category_id == tbl_Cat.category_id && e.status!="D").SingleOrDefault();
+            var objUser=db.Categories.Where(e=>e.category_id == tbl_Cat.category_id && e.status!="D").SingleOrDefault();
 
             if (objUser != null) 
             {
@@ -70,24 +70,24 @@ namespace DAL.Manager
         {
             if(id!=0)
             {
-                return db.Category.Where(e=>e.category_id==id && e.status!="D").ToList();
+                return db.Categories.Where(e=>e.category_id==id && e.status!="D").ToList();
             }
             else
             {
-                return db.Category.Where(e=>e.status!="D").ToList();
+                return db.Categories.Where(e=>e.status!="D").ToList();
             }
         }
 
         public Category categorybyid(int id)
         {
             Category  tbl_cat= new Category();
-            return db.Category.Where(e=>e.category_id==id&&e.status!="D").SingleOrDefault();
+            return db.Categories.Where(e=>e.category_id==id&&e.status!="D").SingleOrDefault();
         }
 
         public void deletecategory(int id)
         {
-            var catId=db.Category.Where(e=>e.category_id== id && e.status!="D").SingleOrDefault();
-            db.Category.Remove(catId);
+            var catId=db.Categories.Where(e=>e.category_id== id && e.status!="D").SingleOrDefault();
+            db.Categories.Remove(catId);
             db.SaveChanges();
         }
 

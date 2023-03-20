@@ -15,7 +15,7 @@ namespace DAL.Manager
 {
     public class OrderManager
     {
-        E_COMMERCEEntities1 order = new E_COMMERCEEntities1();
+        E_COMMERCE1Entities order = new E_COMMERCE1Entities();
 
         
 
@@ -25,7 +25,7 @@ namespace DAL.Manager
         //   // var list = order.Orders.ToList();
         //    return return_Obj = order.Orders.Where(e => e.order_id == id && e.status != "D").SingleOrDefault();
         //}
-        public List<Orders> allOrders(int id = 0)
+        public List<Order> allOrders(int id = 0)
         {
             if (id != 0)
             {
@@ -36,17 +36,17 @@ namespace DAL.Manager
                 return order.Orders.Where(e => e.status != "D").ToList();
             }
         }
-        public Orders orderdetUserId(int id)
+        public Order orderdetUserId(int id)
         {
-            Orders return_Obj = new Orders();
+            Order return_Obj = new Order();
             return return_Obj = order.Orders.Where(e => e.user_id == id && e.status != "D").SingleOrDefault();
         }
 
-        public List<Orders> Product_OrderDetails(int id)
+        public List<Order> Product_OrderDetails(int id)
         {
             return order.Orders.Where(p => p.product_id == id).ToList();
         }
-        public string AddOrder(Orders ord)
+        public string AddOrder(Order ord)
         {
             int result = 0;
 
@@ -58,12 +58,12 @@ namespace DAL.Manager
             else
                 return "Error ";
         }
-        public int GetPrice(Orders rd)
+        public int GetPrice(Order rd)
         {
-            var tot = order.Products.FirstOrDefault(e => e.product_id == rd.product_id);
+            var tot = order.Products.Find(rd.product_id);
             return (int)tot.price;
         }
-        public List<Orders> allOrdersusr(int id = 0)
+        public List<Order> allOrdersusr(int id = 0)
         {
             if (id != 0)
             {
@@ -74,7 +74,7 @@ namespace DAL.Manager
                 return order.Orders.Where(e => e.status != "D").ToList();
             }
         }
-        public string Orderinsert(Orders Obj)
+        public string Orderinsert(Order Obj)
         {
             int result = 0;
             var objodr = order.Orders.Where(e => e.order_id == Obj.order_id && e.status != "D").SingleOrDefault();
@@ -108,7 +108,7 @@ namespace DAL.Manager
                 return "Error";
             }
         }
-        public void OrderUpdate(Orders Obj)
+        public void OrderUpdate(Order Obj)
         {
             var objodr = order.Orders.Where(e => e.order_id == Obj.order_id).SingleOrDefault();
             if (objodr != null)
@@ -129,11 +129,11 @@ namespace DAL.Manager
 
         }
 
-        public List<Orders> Ordered_UserDetails(Orders uid)
+        public List<Order> Ordered_UserDetails(Order uid)
         {
             return order.Orders.Where(p => p.user_id == uid.user_id && p.status != "D").ToList();
         }
-        public void OrderCancelation(Orders obj)
+        public void OrderCancelation(Order obj)
         {
             var id = order.Orders.SingleOrDefault(e => e.order_id == obj.order_id);
 
@@ -142,18 +142,18 @@ namespace DAL.Manager
             order.SaveChanges();
         }
 
-        public string SelectMailid(Orders odr)
+        public string SelectMailid(Order odr)
         {
             var mailid = order.Users.FirstOrDefault(e => e.user_id == odr.user_id);
 
             return mailid.email;
         }
 
-        public List<Orders> OrderFullData(Orders obj)
+        public List<Order> OrderFullData(Order obj)
         {
             return order.Orders.Where(p => p.user_id == obj.user_id).ToList();
         }
-        public string UpdateStatus(Orders obj)
+        public string UpdateStatus(Order obj)
         {
             var id = order.Orders.FirstOrDefault(p => p.user_id == obj.user_id);
             if (id == null)

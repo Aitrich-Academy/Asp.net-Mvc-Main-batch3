@@ -10,9 +10,9 @@ namespace DAL.Manager
 {
     public class UserManager
     {
-        E_COMMERCEEntities1 usr = new E_COMMERCEEntities1();
+        E_COMMERCE1Entities usr = new E_COMMERCE1Entities();
 
-        public string userRegistration(Users Obj)
+        public string userRegistration(User Obj)
         {
             int result = 0;
             //var objUser = usr.Users
@@ -52,7 +52,7 @@ namespace DAL.Manager
             }
 
         }
-        public string userRegistration_update(Users ur)
+        public string userRegistration_update(User ur)
         {
 
             var objUser = usr.Users.Where(e => e.user_id == ur.user_id && e.status != "D").SingleOrDefault();
@@ -82,9 +82,9 @@ namespace DAL.Manager
             }
         }
 
-        public Users userDetails(int Id)
+        public User userDetails(int Id)
         {
-            Users return_Obj = new Users();
+            User return_Obj = new User();
             return return_Obj = usr.Users.Where(e => e.user_id == Id && e.status != "D").SingleOrDefault();
         }
         public void userRegistration_delete(int id)
@@ -97,13 +97,19 @@ namespace DAL.Manager
 
         }
 
-        public Users login(Users a)
+        public User login(User a)
         {
-            var objUser = usr.Users.Where(e => e.email == a.email && e.password == a.password && e.status != "D").SingleOrDefault();
-            return objUser;
+            try
+            {
+                var objUser = usr.Users.Where(e => e.email == a.email && e.password == a.password && e.status != "D").FirstOrDefault();
+                return objUser;
+            }catch(Exception ex)
+            {
+                return null;
+            }
         }
 
-        public string userPatch(Users ur)
+        public string userPatch(User ur)
         {
 
             var objUser = usr.Users.Where(e => e.user_id == ur.user_id && e.status != "D").SingleOrDefault();

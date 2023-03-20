@@ -10,15 +10,17 @@ using System.Net.Configuration;
 using System.Net.Http;
 using System.Net.Mail;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Ent_Email = DAL.Manager.Ent_Email;
 //using Ent_Email = DAL.Manager.Ent_Email;
 
 namespace E_Commerce.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/Order")]  // Url creation Route
     public class OrderController : ApiController
     {
-        E_COMMERCEEntities1 db = new E_COMMERCEEntities1();
+        E_COMMERCE1Entities db = new E_COMMERCE1Entities();
 
 
         OrderManager mgr = new OrderManager();
@@ -64,7 +66,7 @@ namespace E_Commerce.Controllers
         {
             OrderManager odmngr = new OrderManager();
             List<Ent_Order> return_List = new List<Ent_Order>();
-            List<Orders> odr_Obj = odmngr.allOrders();
+            List<Order> odr_Obj = odmngr.allOrders();
             if (odr_Obj.Count != 0)
             {
                 foreach (var obj in odr_Obj)
@@ -95,7 +97,7 @@ namespace E_Commerce.Controllers
         {
             OrderManager odmngr = new OrderManager();
             Ent_Order return_Obj = new Ent_Order();
-            Orders odr_Obj = odmngr.orderdetUserId(Convert.ToInt32(id));
+            Order odr_Obj = odmngr.orderdetUserId(Convert.ToInt32(id));
 
             if (odr_Obj != null)
             {
@@ -121,7 +123,7 @@ namespace E_Commerce.Controllers
         {
             OrderManager odmngr = new OrderManager();
             List<Ent_Order> return_List = new List<Ent_Order>();
-            List<Orders> odr_Obj = odmngr.allOrdersusr(Convert.ToInt32(id));
+            List<Order> odr_Obj = odmngr.allOrdersusr(Convert.ToInt32(id));
             if (odr_Obj.Count != 0)
             {
                 foreach (var obj in odr_Obj)
@@ -176,7 +178,7 @@ namespace E_Commerce.Controllers
         public HttpResponseMessage Post(Ent_Order ent)
         {
 
-            Orders ord = new Orders();
+            Order ord = new Order();
             ord.user_id = ent.user_id;
             ord.product_id = ent.product_id;
             ord.quantity = ent.quantity;
@@ -216,7 +218,7 @@ namespace E_Commerce.Controllers
         {
             OrderManager odrmngr = new OrderManager();
             Ent_Order entobj = Obj;
-            Orders odr = new Orders();
+            Order odr = new Order();
 
             odr.order_id = id;
             //odr.user_id = (int)entobj.user_id;
@@ -245,7 +247,7 @@ namespace E_Commerce.Controllers
         [Route("Delete")]
         public HttpResponseMessage Delete(int id)
         {
-            Orders ord = new Orders();
+            Order ord = new Order();
             OrderManager odmngr = new OrderManager();
             ord.order_id = id;
             ord.status = "D";
@@ -264,7 +266,7 @@ namespace E_Commerce.Controllers
             try
             {
 
-                Orders order = new Orders();
+                Order order = new Order();
                 order.user_id = ent.user_id;
 
                 string mailid = mgr.SelectMailid(order);
@@ -275,7 +277,7 @@ namespace E_Commerce.Controllers
                 mail.Subject = "Order Details";
 
 
-                List<Orders> ord1 = mgr.OrderFullData(order);
+                List<Order> ord1 = mgr.OrderFullData(order);
 
                 foreach (var obj in ord1)
                 {
@@ -301,14 +303,14 @@ namespace E_Commerce.Controllers
             try
             {
 
-                Orders order = new Orders();
+                Order order = new Order();
                 order.user_id = ent.user_id;
 
                 string mailid = mgr.SelectMailid(order);
                 mail.Email = mailid;
 
 
-                List<Orders> ord1 = mgr.OrderFullData(order);
+                List<Order> ord1 = mgr.OrderFullData(order);
                 foreach (var obj in ord1)
                 {
                     int tot = mgr.GetPriceByProduct(obj.product_id);
