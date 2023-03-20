@@ -11,9 +11,11 @@ using System.Net.Http.Headers;
 using E_Commerce_Project.Utils;
 using E_Commerce.Models;
 using E_Commerce_Project.Models;
+using System.Web.Http.Cors;
 
 namespace E_Commerce_Project.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
@@ -41,7 +43,7 @@ namespace E_Commerce_Project.Controllers
             tbl_Obj.password = objUser.password;
             //tbl_Obj.image = objUser.image;
             tbl_Obj.role = "User";
-            tbl_Obj.status = objUser.status;
+            tbl_Obj.status = "A";
             tbl_Obj.createdBy = "system";
             tbl_Obj.createdDate = DateTime.Now.ToString();
             tbl_Obj.lastModifiedBy = "system";

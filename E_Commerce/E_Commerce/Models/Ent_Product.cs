@@ -14,7 +14,7 @@ namespace E_Commerce.Models
         public string categoryName { get; set; }
         public string description { get; set; }
         public int stock { get; set; }
-        public byte[] image { get; set; }
+        public string image { get; set; }
         public string status { get; set; }
         public string createdBy { get; set; }
         public string createdDate { get; set; }
@@ -22,8 +22,5 @@ namespace E_Commerce.Models
         public string lastModifiedDate { get; set; }
         public int price { get; set; }  
 
-        public virtual Category Category { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
     }
 }
