@@ -12,7 +12,6 @@ namespace DAL.Manager
     public class CategoryManager
     {
         E_COMMERCE1Entities db = new E_COMMERCE1Entities();
-
         public string InsertCategory(Category tbl_cat)
         {
             int result = 0;
