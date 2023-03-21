@@ -12,7 +12,6 @@ namespace DAL.Manager
     public class ProductManager
     {
         E_COMMERCE1Entities db =new E_COMMERCE1Entities();
-
         public string InsertProduct(Product tbl_prod)
         {
             int result = 0;

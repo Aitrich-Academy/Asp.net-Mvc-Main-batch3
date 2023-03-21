@@ -125,6 +125,7 @@ namespace E_Commerce.Controllers
             return List;
         }
 
+
         [HttpGet]
         [Route("categorybyid")]
         public Ent_Category categoryByID(string id)

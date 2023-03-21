@@ -82,6 +82,7 @@ namespace E_Commerce.Controllers
             }
         }
 
+
         [HttpGet]
         [Route("allProducts")]
         public List<Ent_Product> allProducts()
