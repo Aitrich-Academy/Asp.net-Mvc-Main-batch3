@@ -22,5 +22,6 @@ namespace E_Commerce.Models
         public string lastModifiedDate { get; set; }
         public int price { get; set; }  
 
+        
     }
 }

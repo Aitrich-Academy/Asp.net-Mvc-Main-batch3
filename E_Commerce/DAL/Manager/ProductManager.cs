@@ -11,7 +11,7 @@ namespace DAL.Manager
 {
     public class ProductManager
     {
-        E_COMMERCE1Entities db =new E_COMMERCE1Entities();
+        E_COMMERCEEntities db =new E_COMMERCEEntities();
         public string InsertProduct(Product tbl_prod)
         {
             int result = 0;
@@ -19,7 +19,7 @@ namespace DAL.Manager
             var objUser=db.Products.Where(e=>e.product_name==tbl_prod.product_name && e.status!="D").SingleOrDefault();
             if(objUser==null)
             {
-                tbl_prod.status = "A";
+                //tbl_prod.status = "A";
                 db.Products.Add(tbl_prod);
                 result=db.SaveChanges();
             }
