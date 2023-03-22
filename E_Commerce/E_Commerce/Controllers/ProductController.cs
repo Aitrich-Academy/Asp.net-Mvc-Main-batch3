@@ -1,6 +1,8 @@
 ﻿using DAL.Manager;
 using DAL.Models;
 using E_Commerce.Models;
+using E_Commerce_Project.Utils;
+using Microsoft.AspNetCore.Cors;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,15 +10,16 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Cors;
+//using System.Web.Http.Cors;
 //using System.Web.Mvc;
 
 namespace E_Commerce.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/Product")]
     public class ProductController : ApiController
     {
@@ -27,26 +30,37 @@ namespace E_Commerce.Controllers
             return "hii";
         }
 
+        //N C
         [HttpPost   ]
         [Route("ProductInsert")]
-        public string ProductInsert(Ent_Product Obj)
+        public HttpResponseMessage ProductInsert(Ent_Product Obj)
         {
-            ProductManager mngr=new ProductManager();
-            Ent_Product entProObj = Obj;
-            Product tbl_Prod = new Product();
+            AuthenticationHeaderValue authorization = Request.Headers.Authorization;
+            if (authorization != null)
+            {
+                User usersDTO = TokenManager.ValidateToken(authorization.Parameter);
 
-            tbl_Prod.product_name = entProObj.name;
-            tbl_Prod.category_id = entProObj.categoryId;
-            tbl_Prod.description = entProObj.description;
-            tbl_Prod.stock = entProObj.stock;
-            tbl_Prod.image = Encoding.ASCII.GetBytes(entProObj.image);
-            tbl_Prod.price= entProObj.price;
-            tbl_Prod.status = "A";
-            tbl_Prod.createdBy = "admin";
-            tbl_Prod.createdDate = DateTime.Now.ToString();
-            tbl_Prod.lastModifiedBy = "admin";
-            tbl_Prod.lastModifiedDate = DateTime.Now.ToString();
-            return mngr.InsertProduct(tbl_Prod);
+                if (usersDTO.user_id != null && usersDTO.role == "Admin")
+                {
+                    ProductManager mngr = new ProductManager();
+                    Ent_Product entProObj = Obj;
+                    Product tbl_Prod = new Product();
+
+                    tbl_Prod.product_name = entProObj.name;
+                    tbl_Prod.category_id = entProObj.categoryId;
+                    tbl_Prod.description = entProObj.description;
+                    tbl_Prod.stock = entProObj.stock;
+                    tbl_Prod.image = Encoding.ASCII.GetBytes(entProObj.image);
+                    tbl_Prod.price = entProObj.price;
+                    tbl_Prod.status = "A";
+                    tbl_Prod.createdBy = "admin";
+                    tbl_Prod.createdDate = DateTime.Now.ToString();
+                    tbl_Prod.lastModifiedBy = "admin";
+                    tbl_Prod.lastModifiedDate = DateTime.Now.ToString();
+                    return Request.CreateResponse(HttpStatusCode.OK,mngr.InsertProduct(tbl_Prod));
+                }
+            }
+            return Request.CreateResponse(HttpStatusCode.Unauthorized, "Please Login");
         }
 
         [HttpPut]
@@ -100,7 +114,7 @@ namespace E_Commerce.Controllers
                 ent_Product.id = obj.product_id;
                 ent_Product.name = obj.product_name;
                 ent_Product.categoryId = obj.category_id;
-                ent_Product.categoryName = obj.Category.category_name;
+               // ent_Product.categoryName = obj.Category.category_name;
                 ent_Product.description = obj.description;
                 ent_Product.stock = obj.stock;
                 if(ent_Product.image!=null)
@@ -133,7 +147,7 @@ namespace E_Commerce.Controllers
                     id = obj.product_id,
                     name = obj.product_name,
                     categoryId = obj.category_id,
-                    categoryName=obj.Category.category_name,
+                    //categoryName=obj.Category.category_name,
                     description = obj.description,
                     stock = obj.stock,
                     image = Encoding.ASCII.GetString(obj.image),
@@ -163,7 +177,7 @@ namespace E_Commerce.Controllers
                 entProdObj.id = tbl_prod.product_id;
                 entProdObj.name = tbl_prod.product_name;
                 entProdObj.categoryId = tbl_prod.category_id;
-                entProdObj.categoryName = tbl_prod.Category.category_name;
+                //entProdObj.categoryName = tbl_prod.Category.category_name;
                 entProdObj.description = tbl_prod.description;
                 entProdObj.stock = tbl_prod.stock;
                 entProdObj.image = Encoding.ASCII.GetString(tbl_prod.image);
@@ -192,7 +206,7 @@ namespace E_Commerce.Controllers
                     id= obj.product_id,
                     name = obj.product_name,
                     categoryId = obj.category_id,
-                    categoryName=obj.Category.category_name,
+                    //categoryName=obj.Category.category_name,
                     description = obj.description,
                     stock = obj.stock,
                     image = Encoding.ASCII.GetString(obj.image),

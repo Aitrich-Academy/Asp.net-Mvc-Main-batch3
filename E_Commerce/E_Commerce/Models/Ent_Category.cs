@@ -10,11 +10,9 @@ namespace E_Commerce.Models
     public class Ent_Category
     {
         public int id { get; set; }
-        [Required]
         public string name { get; set; }
-        [Required]
         public string description { get; set; }
-        public string  image { get; set; }
+        public string image { get; set; }
         public string status { get; set; }
         public string createdBy { get; set; }
         public string createdDate { get; set; }

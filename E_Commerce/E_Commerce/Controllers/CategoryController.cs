@@ -12,12 +12,12 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Cors;
+//using System.Web.Http.Cors;
 //using System.Web.Mvc;
 
 namespace E_Commerce.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/category")]
     public class CategoryController : ApiController
     {
@@ -45,6 +45,7 @@ namespace E_Commerce.Controllers
                     CategoryManager mngr = new CategoryManager();
                     Ent_Category objCat = Obj;
                     Category tbl_Obj = new Category();
+
                     tbl_Obj.category_name = objCat.name;
                     tbl_Obj.description = objCat.description;
                     tbl_Obj.image = Encoding.ASCII.GetBytes(objCat.image);
